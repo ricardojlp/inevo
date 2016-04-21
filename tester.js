@@ -15,9 +15,10 @@ var Tester = {
    * @return null if input is null or filename has no extension and the
    *         extension without the period otherwise
    */
-  getFileNameExtension: function (file) {
-    // XXX implement me !
-    return null;
+    getFileNameExtension: function (file) {
+        var ext = file.split(".").length == 1 ? null : file.split('.').pop();
+
+        return ext;
   },
 
   /**
@@ -27,8 +28,13 @@ var Tester = {
    * @return null if input is null and the longest string otherwise
    */
   getLongestString: function (values) {
-    // XXX implement me !
-    return null;
+      var newValues = [];
+
+      for (var i = 0; i < values.length; i++){
+          newValues.push(values.sort(function (a, b) { return b.length - a.length; })[i]);
+      }
+
+      return newValues;
   },
 
   /**
@@ -39,8 +45,35 @@ var Tester = {
    * @return true if both arrays contains the same values
    */
   areArraysEquals: function (arr1, arr2) {
-    // XXX implement me !
-    return false;
+      var temp = new Array(),
+          arrEq = true;
+
+      if ((!arr1[0]) || (!arr2[0])) { // If either is not an array
+          arrEq = false;
+      }
+      if (array1.length != array2.length) {
+          arrEq = false;
+      }
+      // Put all the elements from array1 into a "tagged" array
+      for (var i = 0; i < arr1.length; i++) {
+          key = (typeof arr1[i]) + "~" + arr1[i];
+          // Use "typeof" so a number 1 isn't equal to a string "1".
+          if (temp[key]) { temp[key]++; } else { temp[key] = 1; }
+          // temp[key] = # of occurrences of the value (so an element could appear multiple times)
+      }
+      // Go through array2 - if same tag missing in "tagged" array, not equal
+      for (var i = 0; i < arr2.length; i++) {
+          key = (typeof arr2[i]) + "~" + arr2[i];
+          if (temp[key]) {
+              if (temp[key] == 0) { return false; } else { temp[key]--; }
+              // Subtract to keep track of # of appearances in array2
+          } else { // Key didn't appear in array1, arrays are not equal.
+              arrEq = false;
+              break;
+          }
+      }
+
+      return arrEq;
   },
 
   /**
@@ -53,7 +86,7 @@ var Tester = {
    * @return the compressed String or null if the input is null
    */
   getCompressedString: function (str) {
-    // XXX implement me !
+
     return null;
   },
 
@@ -65,7 +98,8 @@ var Tester = {
    * @return the sorted array
    */
   getSortedArray: function (arr) {
-    // XXX implement me !
-    return null;
+      var sortArr = arr.sort();
+
+      return sortArr;
   }
 };
